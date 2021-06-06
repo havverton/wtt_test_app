@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:wtt_test_app/styles.dart';
 
 class LoginButtonColumn extends StatelessWidget {
   final String actionType;
@@ -15,7 +16,7 @@ class LoginButtonColumn extends StatelessWidget {
             Container(
               height: 6.h,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(33),
+                borderRadius: kMainBorderRadius,
                 color: Colors.black,
               ),
               child: InkWell(
@@ -23,8 +24,8 @@ class LoginButtonColumn extends StatelessWidget {
                   child: Row(
                     children: [
                       Container(
-                        width: 30,
-                        height: 30,
+                        width: 4.h,
+                        height: 4.h,
                         margin: EdgeInsets.only(left: 12.0),
                         child: FittedBox(
                             fit: BoxFit.cover,
@@ -38,7 +39,7 @@ class LoginButtonColumn extends StatelessWidget {
                             child: Text(
                               "$actionType with Facebook",
                               style:
-                              TextStyle(color: Colors.white, fontSize: 16),
+                              kLoginServiceButtonTextStyle,
                             ),
                           ),
                         ),
@@ -49,7 +50,7 @@ class LoginButtonColumn extends StatelessWidget {
             Container(
               height: 6.h,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(33),
+                borderRadius: kMainBorderRadius,
                 color: Colors.black,
               ),
               child: InkWell(
@@ -57,8 +58,8 @@ class LoginButtonColumn extends StatelessWidget {
                   child: Row(
                     children: [
                       Container(
-                        width: 30,
-                        height: 30,
+                        width: 4.h,
+                        height: 4.h,
                         margin: EdgeInsets.only(left: 12.0),
                         child: FittedBox(
                             fit: BoxFit.cover,
@@ -72,7 +73,7 @@ class LoginButtonColumn extends StatelessWidget {
                             child: Text(
                               "$actionType with Google",
                               style:
-                              TextStyle(color: Colors.white, fontSize: 16),
+                              kLoginServiceButtonTextStyle,
                             ),
                           ),
                         ),
@@ -83,7 +84,7 @@ class LoginButtonColumn extends StatelessWidget {
             Container(
               height: 6.h,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(33),
+                borderRadius: kMainBorderRadius,
                 color: Colors.black,
               ),
               child: InkWell(
@@ -106,7 +107,7 @@ class LoginButtonColumn extends StatelessWidget {
                             child: Text(
                               "$actionType with Instagram",
                               style:
-                              TextStyle(color: Colors.white, fontSize: 16),
+                              kLoginServiceButtonTextStyle,
                             ),
                           ),
                         ),

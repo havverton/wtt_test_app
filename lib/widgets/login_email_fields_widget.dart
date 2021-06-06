@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
-import 'package:wtt_test_app/welcome_page.dart';
+import 'package:wtt_test_app/pages/welcome_page.dart';
+import 'package:wtt_test_app/styles.dart';
 
 class LoginEmailFieldsWidget extends StatefulWidget {
   @override
@@ -15,7 +15,6 @@ class _LoginEmailFieldsWidgetState extends State<LoginEmailFieldsWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //  color: Colors.red,
       child: Form(
         key: _formKey,
         child:
@@ -23,8 +22,7 @@ class _LoginEmailFieldsWidgetState extends State<LoginEmailFieldsWidget> {
           Container(
             height: 5.h,
             decoration: BoxDecoration(
-                color: Color(0xFFEBEBEB),
-                borderRadius: BorderRadius.circular(30)),
+                color: Color(0xFFEBEBEB), borderRadius: kMainBorderRadius),
             child: TextField(
                 cursorColor: Colors.grey,
                 cursorHeight: 16.sp,
@@ -35,8 +33,7 @@ class _LoginEmailFieldsWidgetState extends State<LoginEmailFieldsWidget> {
                 decoration: InputDecoration(
                   fillColor: Color(0xFFEBEBEB),
                   hintText: "Email",
-                  hintStyle:
-                      TextStyle(fontSize: 14.sp, color: Color(0xFFB5B5B5)),
+                  hintStyle: kHintStyle,
                   prefixIcon: Icon(
                     Icons.alternate_email,
                     color: Color(0xFFB5B5B5),
@@ -55,13 +52,9 @@ class _LoginEmailFieldsWidgetState extends State<LoginEmailFieldsWidget> {
               Container(
                 height: 5.h,
                 decoration: BoxDecoration(
-                    color: Color(0xFFEBEBEB),
-                    borderRadius: BorderRadius.circular(30)),
+                    color: Color(0xFFEBEBEB), borderRadius: kMainBorderRadius),
               ),
               TextFormField(
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
                   cursorColor: Colors.grey,
                   cursorHeight: 16.sp,
                   textAlignVertical: TextAlignVertical.center,
@@ -72,8 +65,7 @@ class _LoginEmailFieldsWidgetState extends State<LoginEmailFieldsWidget> {
                   decoration: InputDecoration(
                     fillColor: Color(0xFFEBEBEB),
                     hintText: "Password",
-                    hintStyle:
-                        TextStyle(fontSize: 14.sp, color: Color(0xFFB5B5B5)),
+                    hintStyle: kHintStyle,
                     prefixIcon: Icon(
                       Icons.lock,
                       color: Color(0xFFB5B5B5),
@@ -88,45 +80,53 @@ class _LoginEmailFieldsWidgetState extends State<LoginEmailFieldsWidget> {
                   )),
             ],
           ),
-          Container(
-            height: 6.h,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(33),
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Color(0xFFFFA450), Color(0xFFE16C00)])),
-            child: InkWell(
-                onTap: () => {
-                      if (_formKey.currentState!.validate())
-                        {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  content: Container(
-                                      height: 30.w,
-                                      width: 30.w,
-                                      child: Center(
-                                          child: CircularProgressIndicator())),
-                                );
-                              }),
-                          Future.delayed(Duration(seconds: 3))
-                              .then((value) => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => WelcomePage()),
-                                  ))
-                        }
-                    },
-                child: Container(
-                  child: Center(
-                    child: Text(
-                      "Login",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+          Material(
+            child: Ink(
+              height: 6.h,
+              decoration: BoxDecoration(
+                  borderRadius: kMainBorderRadius,
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Color(0xFFFFA450), Color(0xFFE16C00)])),
+              child: InkWell(
+                  borderRadius: kMainBorderRadius,
+                  onTap: () => {
+                        if (_formKey.currentState!.validate())
+                          {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    content: Container(
+                                        height: 30.w,
+                                        width: 30.w,
+                                        child: Center(
+                                            child:
+                                                CircularProgressIndicator())),
+                                  );
+                                }),
+                            Future.delayed(Duration(seconds: 3))
+                                .then((value) => {
+                                      Navigator.of(context).pop(),
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                WelcomePage()),
+                                      )
+                                    })
+                          }
+                      },
+                  child: Container(
+                    child: Center(
+                      child: Text(
+                        "Login",
+                        style: TextStyle(color: Colors.white, fontSize: 15.sp),
+                      ),
                     ),
-                  ),
-                )),
+                  )),
+            ),
           ),
         ]),
       ),

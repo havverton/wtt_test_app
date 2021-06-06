@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:wtt_test_app/login_tab.dart';
-import 'package:wtt_test_app/sign_up_tab.dart';
+import 'package:wtt_test_app/styles.dart';
+import 'package:wtt_test_app/tabs/login_tab.dart';
+import 'package:wtt_test_app/tabs/sign_up_tab.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
+        theme: kMainMaterialTheme,
         home: LoginPage(),
       );
     });
@@ -25,13 +27,14 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
-  var _placeholderText = ["See you there", "Create account"];
+class _LoginPageState extends State<LoginPage>
+    with SingleTickerProviderStateMixin {
+  var _placeholderText = ["See You There", "Create account"];
   late TabController _tabController;
 
-  static const List<Tab> loginTabs = <Tab>[
-    Tab(text: 'Sign up'),
-    Tab(text: 'Log in'),
+  static const List<Text> loginTabs = <Text>[
+    Text('Sign up'),
+    Text('Log in'),
   ];
 
   Widget build(BuildContext context) {
@@ -41,66 +44,63 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
           Flexible(
             flex: MediaQuery.of(context).viewInsets.bottom == 0 ? 4 : 1,
             child: Container(
-              height: 39.h,
-              decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x40000000),
-                      spreadRadius: 0,
-                      blurRadius: 15,
-                      offset: Offset(0, 4), // changes position of shadow
-                    ),
-                  ],
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Color(0xFFFF820F), Color(0xFFFB31FF)])),
-              child: Center(
-                child: Stack(children: [
-                  Center(
-                      child: Text(_tabController.index == 0 ? _placeholderText[1] : _placeholderText[0], style: TextStyle(color: Colors.white, fontSize: 34.sp),)),
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    child: DefaultTabController(
-                      length: loginTabs.length,
-                      child: TabBar(
-                        //TODO черный фон на вкладках
-                        labelColor: const Color(0xFFFFFFFF),
-                        unselectedLabelColor: const Color(0x77FFFFFF),
-                        indicatorColor: Colors.white,
-                        controller: _tabController,
-                        tabs: [
-                          Tab(
-                            child: Text("Sign up"),
+              height: kLoginPagePlaceholderHeight,
+              decoration: kMainPlaceholderDecoration,
+              child: Stack(children: [
+                Center(
+                    child: Text(
+                  _tabController.index == 0
+                      ? _placeholderText[1]
+                      : _placeholderText[0],
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: MediaQuery.of(context).viewInsets.bottom == 0
+                          ? 25.sp
+                          : 0),
+                )),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    color: const Color(0x14000000),
+                    child: TabBar(
+                      labelColor: kSelectedLabelColor,
+                      unselectedLabelColor: kUnselectedLabelColor,
+                      indicatorColor: Colors.white,
+                      controller: _tabController,
+                      tabs: [
+                        Tab(
+                          child: Text(
+                            'Sign up',
+                            style: kTabsTextStyle,
                           ),
-                          Tab(
-                            child: Text("Log in"),
+                        ),
+                        Tab(
+                          child: Text(
+                            'Log in',
+                            style: kTabsTextStyle,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  )
-                ]),
-              ),
+                  ),
+                )
+              ]),
             ),
           ),
-          Flexible(
+          Expanded(
             flex: 6,
             child: Container(
-              color: Color(0xFFFFFFFF),
-              child: DefaultTabController(
-                length: loginTabs.length,
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    Center(
-                      child: SignUpTab(),
-                    ),
-                    Center(
-                      child: LoginTab(),
-                    ),
-                  ],
-                ),
+              color: Colors.transparent,
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  Center(
+                    child: SignUpTab(),
+                  ),
+                  Center(
+                    child: LoginTab(),
+                  ),
+                ],
               ),
             ),
           )
@@ -108,20 +108,19 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
       ),
     );
   }
-  @override
-  void initState(){
-     _tabController = TabController(length: loginTabs.length, vsync: this);
-     _tabController.addListener(() {
-       setState(() {
 
-       });
-     });
+  @override
+  void initState() {
+    _tabController = TabController(length: loginTabs.length, vsync: this);
+    _tabController.addListener(() {
+      FocusScope.of(context).unfocus();
+      setState(() {});
+    });
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _tabController.dispose();
-        super.dispose();
+    super.dispose();
   }
-
 }

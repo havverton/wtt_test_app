@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:wtt_test_app/pages/create_account_page.dart';
 
 class EmailButtonWidget extends StatelessWidget {
 
@@ -25,12 +26,21 @@ class EmailButtonWidget extends StatelessWidget {
                     )),
 
               Expanded(
-                child: Container(
-                  child: Center(
-                    child: Text(
-                      "Sign up with email",
-                      style:
-                      TextStyle(color: Colors.white, fontSize: 16),
+                child: Ink(
+                  child: Container(
+                    child: InkWell(
+                      onTap: ()=> Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegistrationPage()),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Sign up with email",
+                          style:
+                          TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ),
                     ),
                   ),
                 ),

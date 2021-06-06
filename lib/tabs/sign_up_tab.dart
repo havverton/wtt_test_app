@@ -1,13 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wtt_test_app/main.dart';
+import 'package:sizer/sizer.dart';
 import 'package:wtt_test_app/widgets/custom_divider.dart';
 import 'package:wtt_test_app/widgets/email_button.dart';
-import 'package:sizer/sizer.dart';
-import 'package:wtt_test_app/widgets/login_button_column.dart';
-import 'package:wtt_test_app/widgets/login_email_fields_widget.dart';
+import 'package:wtt_test_app/widgets/login_by_service_column.dart';
 
-class LoginTab extends StatelessWidget {
+class SignUpTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,20 +12,22 @@ class LoginTab extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Flexible(flex: 4, child: LoginButtonColumn("Log in")),
+          Flexible(flex: 4, child: LoginButtonColumn("Sign up")),
           Flexible(flex: 1, child: CustomDividerWidget()),
-          Flexible(flex: 3, child: Center(child: LoginEmailFieldsWidget())),
+          Flexible(flex: 3, child: EmailButtonWidget()),
           Align(
               alignment: Alignment.bottomCenter,
               child: Container(
                 child: Center(
-                  child:Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Column(
                     children: [
-                      Text("Forgot your password? "),
-                      Text(
-                        "Click here",
-                        style: TextStyle(color: Colors.orange),
+                      Text("Already have an account?"),
+                      InkWell(
+                        onTap: () => {print('Я нажалась :)')},
+                        child: Text(
+                          "Click here",
+                          style: TextStyle(color: Colors.orange),
+                        ),
                       )
                     ],
                   ),
@@ -39,4 +38,3 @@ class LoginTab extends StatelessWidget {
     );
   }
 }
-
