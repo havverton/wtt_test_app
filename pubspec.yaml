@@ -23,6 +23,7 @@ environment:
 dependencies:
   sizer: ^2.0.13
   google_fonts: ^2.1.0
+  flutter_bloc: ^7.1.0
 
 
 
@@ -55,7 +56,7 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - res/
+    - res/images/
   fonts:
     - family: Monserrat
       fonts:

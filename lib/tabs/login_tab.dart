@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:wtt_test_app/strings.dart';
+import 'package:wtt_test_app/styles.dart';
 import 'package:wtt_test_app/widgets/custom_divider.dart';
 import 'package:wtt_test_app/widgets/login_by_service_column.dart';
 import 'package:wtt_test_app/widgets/login_email_fields_widget.dart';
@@ -13,7 +15,7 @@ class LoginTab extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Flexible(flex: 4, child: LoginButtonColumn("Log in")),
+          Flexible(flex: 4, child: LoginButtonColumn(kLoginTabText)),
           Flexible(flex: 1, child: CustomDividerWidget()),
           Flexible(flex: 3, child: Center(child: LoginEmailFieldsWidget())),
           Align(
@@ -23,10 +25,9 @@ class LoginTab extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Forgot your password? "),
-                      Text(
-                        "Click here",
-                        style: TextStyle(color: Colors.orange),
+                      Text(kLoginPageFooterText),
+                      Text(kLoginPageFooterButtonText,
+                        style: kLoginFooterButtonTextStyle,
                       )
                     ],
                   ),
