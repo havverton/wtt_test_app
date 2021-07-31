@@ -52,3 +52,4 @@ class RegistrationInput extends StatelessWidget {
         decoration: kRegistrationInputStyle(inputType.hint, inputType.icon));
   }
 }
+

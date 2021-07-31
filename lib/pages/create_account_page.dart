@@ -12,9 +12,6 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _pass = TextEditingController();
-  final TextEditingController _confirmPass = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -54,8 +51,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              RegistrationInput(
-                                  inputType: RegistrationInputType.phone),
+                              _phoneTextField(),
                               RegistrationInput(
                                   inputType: RegistrationInputType.password),
                               RegistrationInput(
@@ -66,7 +62,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       Flexible(
                           flex: 2,
                           child: Center(
-                            child: const RegistrationPageButton(),
+                            child: RegistrationPageButton(  ),
                           ))
                     ])),
               ),
@@ -76,4 +72,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
       ),
     );
   }
+}
+
+Widget _phoneTextField(){
+
+  return RegistrationInput(inputType: RegistrationInputType.phone,);
 }

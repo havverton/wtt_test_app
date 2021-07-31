@@ -19,6 +19,7 @@ const kTabBarFading = Color(0x14000000);
 const kRegistrationButtonColor = Colors.black;
 const kRegistrationButtonTextColor = Color(0xFFFA1BBF);
 const kInputBorderColor = Colors.transparent;
+const kInputErrorBorderColor = Colors.red;
 
 
 

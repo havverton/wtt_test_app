@@ -4,8 +4,8 @@ import 'package:sizer/sizer.dart';
 import 'package:wtt_test_app/strings.dart';
 import 'package:wtt_test_app/styles.dart';
 import 'package:wtt_test_app/widgets/custom_divider.dart';
-import 'package:wtt_test_app/widgets/login_by_service_column.dart';
-import 'package:wtt_test_app/widgets/login_email_fields_widget.dart';
+import 'package:wtt_test_app/widgets/login_by_email_form.dart';
+import 'package:wtt_test_app/widgets/service_actions.dart';
 
 class LoginTab extends StatelessWidget {
   @override
@@ -15,9 +15,9 @@ class LoginTab extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Flexible(flex: 4, child: LoginButtonColumn(kLoginTabText)),
+          Flexible(flex: 4, child: ServiceActionsWidget(AuthActions.LogIn)),
           Flexible(flex: 1, child: CustomDividerWidget()),
-          Flexible(flex: 3, child: Center(child: LoginEmailFieldsWidget())),
+          Flexible(flex: 4, child: Center(child: LoginEmailFieldsWidget())),
           Align(
               alignment: Alignment.bottomCenter,
               child: Container(
@@ -26,7 +26,8 @@ class LoginTab extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(kLoginPageFooterText),
-                      Text(kLoginPageFooterButtonText,
+                      Text(
+                        kLoginPageFooterButtonText,
                         style: kLoginFooterButtonTextStyle,
                       )
                     ],

@@ -53,16 +53,30 @@ final kRegistrationButtonStyle = BoxDecoration(
 final kRegistrationButtonTextStyle =
     TextStyle(color: kRegistrationButtonTextColor, fontSize: 14.sp);
 
+final kLoginPageButtonStyle = BoxDecoration(
+    borderRadius: kMediumButtonBorderRadius,
+    gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          kLoginEmailButtonStartColor,
+          kLoginEmailButtonEndColor
+        ]));
+
 // input styles
 final kInputHeight = 5.h;
 final kInputBorderRadius = BorderRadius.circular(33);
 final kInputBorderStyle = OutlineInputBorder(
     borderRadius: kInputBorderRadius,
     borderSide: BorderSide(color: kInputBorderColor));
+final kInputErrorBorderStyle = OutlineInputBorder(
+    borderRadius: kInputBorderRadius,
+    borderSide: BorderSide(color: kInputErrorBorderColor));
 
 kLoginInputStyle(String hintText, Icon icon) => InputDecoration(
     fillColor: kInputFillColor,
     filled: true,
+    contentPadding: EdgeInsets.symmetric(vertical: 0.5.h),
     hintText: hintText,
     hintStyle: kHintStyle,
     prefixIcon: icon,
@@ -71,6 +85,7 @@ kLoginInputStyle(String hintText, Icon icon) => InputDecoration(
     enabledBorder: kInputBorderStyle,
     focusedBorder: kInputBorderStyle,
     prefixStyle: TextStyle(color: kInputFillColor));
+
 
 kRegistrationInputStyle(String hintText, Icon icon) =>
     InputDecoration(
