@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wtt_test_app/auth/bloc/form_submission_status.dart';
-import 'package:wtt_test_app/auth/bloc/login_bloc.dart';
-import 'package:wtt_test_app/auth/bloc/login_bloc_events.dart';
+import 'package:wtt_test_app/auth/bloc/login/login_bloc.dart';
+import 'package:wtt_test_app/auth/bloc/login/login_bloc_events.dart';
+import 'package:wtt_test_app/auth/bloc/login/login_bloc_states.dart';
 import 'package:wtt_test_app/auth/login_repository.dart';
-import 'package:wtt_test_app/auth/bloc/login_bloc_states.dart';
 import 'package:wtt_test_app/utils/colors.dart';
+import 'package:wtt_test_app/utils/keys.dart';
 import 'package:wtt_test_app/utils/strings.dart';
 import 'package:wtt_test_app/utils/styles.dart';
 
@@ -16,7 +17,8 @@ class LoginEmailFieldsWidget extends StatefulWidget {
 }
 
 class _LoginEmailFieldsWidgetState extends State<LoginEmailFieldsWidget> {
-  final _formKey = GlobalKey<FormState>();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +30,13 @@ class _LoginEmailFieldsWidgetState extends State<LoginEmailFieldsWidget> {
       if(formStatus is SubmissionFailed){
         _showSnackBar(context, formStatus.exception.toString());
     }
+      if(formStatus is SubmissionSuccess){
+        Navigator.popAndPushNamed(context, "/welcome");
+      }
     },
         child: Container(
             child: Form(
-              key: _formKey,
+              key: formEmailLoginKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -86,7 +91,7 @@ class _LoginEmailFieldsWidgetState extends State<LoginEmailFieldsWidget> {
             child: ElevatedButton(
               style: Theme.of(context).elevatedButtonTheme.style?.copyWith(backgroundColor: kEmailLoginButtonColor,shadowColor: kEmailLoginButtonShadowColor),
                 onPressed: () {
-                  if(_formKey.currentState!.validate()){
+                  if(formEmailLoginKey.currentState!.validate()){
                     context.read<LoginBloc>().add(LoginSubmitted());
                   }
                 },

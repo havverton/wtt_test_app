@@ -14,11 +14,15 @@ const kLoginPageFooterText = "Forgot your password? ";
 const kLoginPageFooterButtonText = "Click me";
 const kRegistrationButtonText = "NEXT";
 
-
-
 const kInitPageRouteName = "/";
 const kRegistrationRouteName = "/emailSignUp";
+const kWelcomeRouteName = "/welcome";
+const kSuccessRouteName = "/success";
 
 const kFacebookIconPath = 'res/images/FacebookIcon.png';
 const kInstagramIconPath = 'res/images/InstagramIcon.png';
 const kGoogleIconPath = 'res/images/GoogleIcon.png';
+
+const kRegistrationNumberError = "Number is invalid";
+const kRegistrationPasswordError = "Password is invalid";
+const kRegistrationConfirmationError = "Password not match";

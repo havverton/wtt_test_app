@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:wtt_test_app/pages/create_account_page.dart';
 import 'package:wtt_test_app/pages/login_page.dart';
+import 'package:wtt_test_app/pages/success_page.dart';
+
 import 'package:wtt_test_app/pages/welcome_page.dart';
 import 'package:wtt_test_app/utils/strings.dart';
 import 'package:wtt_test_app/utils/theme.dart';
@@ -21,7 +23,8 @@ class MyApp extends StatelessWidget {
         routes: {
           kInitPageRouteName: (context) => LoginPage(),
           kRegistrationRouteName: (context) => RegistrationPage(),
-          "/welcome": (context) => WelcomePage()
+          kWelcomeRouteName: (context) => WelcomePage(),
+          ExtractArguments.routeName: (context) => const ExtractArguments()
         },
       );
     });

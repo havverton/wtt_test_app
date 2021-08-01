@@ -7,7 +7,6 @@ import 'package:wtt_test_app/utils/colors.dart';
 import 'package:wtt_test_app/utils/strings.dart';
 import 'package:wtt_test_app/utils/styles.dart';
 
-
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -16,40 +15,61 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  final List<Tab> loginTabNames = <Tab>[
-    Tab(child: Text(kSignUpTabText)),
-    Tab(child: Text(kLoginTabText)),
-  ];
-  final List<Widget> loginTabs = <Widget>[
-    Center(child: SignUpTab()),
-    Center(child: LoginTab()),
-  ];
+  String _placeholderText = kPlaceHolderSignUpText;
 
   Widget build(BuildContext context) {
+    final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom != 0;
     return RepositoryProvider(
         create: (context) => AuthRepository(),
         child: Scaffold(
           body: Column(
             children: [
-              Container(
-                height: kPlaceholderHeightFull,
+              AnimatedContainer(
+                duration: Duration(milliseconds: 150),
+                height: (MediaQuery.of(context).viewInsets.bottom != 0)
+                    ? kPlaceholderHeightShort
+                    : kPlaceholderHeightFull,
                 decoration: kMainPlaceholderDecoration,
                 child: Stack(children: [
-                  Center(
-                    child: Container(
-                      child: (_tabController.index == 0)
-                    ? _placeholderText(kPlaceHolderLoginText)
-                    : _placeholderText(kPlaceHolderSignUpText),
+                  if (!isKeyboardOpen)
+                    Center(
+                      child: AnimatedSwitcher(
+                        duration: Duration(milliseconds: 200),
+                        transitionBuilder:
+                            (Widget child, Animation<double> animation) {
+                          return SlideTransition(
+                            child: child,
+                            position: Tween<Offset>(
+                                    begin: Offset(-1.0, 0.0),
+                                    end: Offset(0.0, 0.0))
+                                .animate(animation),
+                          );
+                        },
+                        child: Text(
+                          _placeholderText,
+                          style: Theme.of(context).textTheme.headline2,
+                          key: ValueKey<String>(_placeholderText),
+                        ),
+                      ),
                     ),
-                    ),
-
                   Container(
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       color: kTabBarFading,
                       child: TabBar(
                         controller: _tabController,
-                        tabs: loginTabNames,
+                        tabs: [
+                          Tab(
+                              child: Text(
+                            kSignUpTabText,
+                            style: Theme.of(context).textTheme.headline4,
+                          )),
+                          Tab(
+                              child: Text(
+                            kLoginTabText,
+                            style: Theme.of(context).textTheme.headline4,
+                          )),
+                        ],
                       ),
                     ),
                   )
@@ -60,7 +80,10 @@ class _LoginPageState extends State<LoginPage>
                   color: Colors.transparent,
                   child: TabBarView(
                     controller: _tabController,
-                    children: loginTabs,
+                    children: [
+                      Center(child: SignUpTab()),
+                      Center(child: LoginTab(isKeyboardOpen)),
+                    ],
                   ),
                 ),
               )
@@ -71,10 +94,16 @@ class _LoginPageState extends State<LoginPage>
 
   @override
   void initState() {
-    _tabController = TabController(length: loginTabNames.length, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       FocusScope.of(context).unfocus();
-      setState(() { });
+      setState(() {
+        if (_tabController.index == 0) {
+          _placeholderText = kPlaceHolderSignUpText;
+        } else {
+          _placeholderText = kPlaceHolderLoginText;
+        }
+      });
     });
   }
 
@@ -83,7 +112,4 @@ class _LoginPageState extends State<LoginPage>
     _tabController.dispose();
     super.dispose();
   }
-
-  Widget _placeholderText(String text)=>
-    Text(text,style: Theme.of(context).textTheme.headline2);
 }

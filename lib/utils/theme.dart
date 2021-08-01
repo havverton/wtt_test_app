@@ -13,6 +13,7 @@ ThemeData basicTheme() => ThemeData(
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         fixedSize: MaterialStateProperty.all<Size>(
             Size(double.infinity, kMediumButtonHeight)),
         textStyle: MaterialStateProperty.all<TextStyle>(
@@ -31,27 +32,21 @@ ThemeData basicTheme() => ThemeData(
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: kCursorColor,
     ),
-
-    iconTheme: IconThemeData(),
     indicatorColor: kSelectedLabelColor,
     disabledColor: kUnselectedLabelColor,
     inputDecorationTheme: InputDecorationTheme(
         fillColor: kInputFillColor,
         filled: true,
         focusColor: Colors.black,
-        contentPadding: kInputContentPadding,
+        isDense: true,
         border: OutlineInputBorder(borderRadius: kInputBorderRadius),
         enabledBorder: kInputBorderStyle,
         focusedBorder: kInputBorderStyle,
         prefixStyle: TextStyle(color: kInputFillColor)),
-
-    primaryIconTheme: IconThemeData(
-      color: Color(0xFF808080)
-    ),
-
+    primaryIconTheme: IconThemeData(color: Color(0xFF808080)),
     textTheme: TextTheme(
         bodyText2: TextStyle(color: Colors.black),
-      headline1: TextStyle(color: Colors.white, fontSize: 40.sp, fontWeight: FontWeight.w900),
-      headline2: TextStyle(color: Colors.white, fontSize: 25.sp,)
-    )
-);
+        headline1: TextStyle(
+            color: Colors.white, fontSize: 40.sp, fontWeight: FontWeight.w900),
+        headline2: TextStyle(color: Colors.white, fontSize: 25.sp),
+        headline4: TextStyle(color: Colors.white, fontSize: 17.sp)));

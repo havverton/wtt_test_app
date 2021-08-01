@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-
 const kTabBarFading = Color(0x14000000);
 
 const kLoginEmailButtonStartColor = Color(0xFFFFA450);
@@ -19,6 +18,5 @@ const kInputFillColor = Color(0xFFEBEBEB);
 const kInputBorderColor = Colors.transparent;
 const kFormHintColor = Color(0xFFB5B5B5);
 const kCursorColor = Colors.grey;
-
 
 final kCursorHeight = 16.sp;

@@ -44,16 +44,17 @@ class ServiceButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: ElevatedButton(
-          onPressed: () { },
-          style: Theme.of(context).elevatedButtonTheme.style!.copyWith(backgroundColor: kServiceButtonColor),
+          onPressed: () {},
+          style: Theme.of(context)
+              .elevatedButtonTheme
+              .style!
+              .copyWith(backgroundColor: kServiceButtonColor),
           child: Row(
             children: [
               _serviceIconContainer(service),
               Expanded(
                 child: Center(
-                  child: Text(
-                    "$actionType with ${service.name}"
-                  ),
+                  child: Text("$actionType with ${service.name}"),
                 ),
               )
             ],
@@ -61,14 +62,12 @@ class ServiceButton extends StatelessWidget {
     );
   }
 }
-Widget _serviceIconContainer(LoginService service) =>
-    Container(
-        width: kServiceButtonIconWidth,
-        height: kServiceButtonIconHeight,
-        margin: kMediumButtonLeftMargin,
-        child: FittedBox(
-          fit: BoxFit.cover,
-          child: service.image,
-        ));
 
-
+Widget _serviceIconContainer(LoginService service) => Container(
+    width: kServiceButtonIconWidth,
+    height: kServiceButtonIconHeight,
+    margin: kMediumButtonLeftMargin,
+    child: FittedBox(
+      fit: BoxFit.cover,
+      child: service.image,
+    ));
