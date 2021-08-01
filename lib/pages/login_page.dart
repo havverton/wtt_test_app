@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer/sizer.dart';
 import 'package:wtt_test_app/auth/login_repository.dart';
-import 'package:wtt_test_app/colors.dart';
-import 'package:wtt_test_app/strings.dart';
-import 'package:wtt_test_app/styles.dart';
-import 'package:wtt_test_app/tabs/login_tab.dart';
-import 'package:wtt_test_app/tabs/sign_up_tab.dart';
+import 'package:wtt_test_app/pages/tabs/login_tab.dart';
+import 'package:wtt_test_app/pages/tabs/sign_up_tab.dart';
+import 'package:wtt_test_app/utils/colors.dart';
+import 'package:wtt_test_app/utils/strings.dart';
+import 'package:wtt_test_app/utils/styles.dart';
+
 
 class LoginPage extends StatefulWidget {
   @override
@@ -15,18 +15,14 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
-  var _placeholderText = [kPlaceHolderLoginText, kPlaceHolderSignUpText];
   late TabController _tabController;
-
-  final List<Text> loginTabs = <Text>[
-    Text(
-      kSignUpTabText,
-      style: kTabsTextStyle,
-    ),
-    Text(
-      kLoginTabText,
-      style: kTabsTextStyle,
-    ),
+  final List<Tab> loginTabNames = <Tab>[
+    Tab(child: Text(kSignUpTabText)),
+    Tab(child: Text(kLoginTabText)),
+  ];
+  final List<Widget> loginTabs = <Widget>[
+    Center(child: SignUpTab()),
+    Center(child: LoginTab()),
   ];
 
   Widget build(BuildContext context) {
@@ -35,64 +31,36 @@ class _LoginPageState extends State<LoginPage>
         child: Scaffold(
           body: Column(
             children: [
-              Flexible(
-                flex: MediaQuery.of(context).viewInsets.bottom == 0 ? 4 : 1,
-                child: Container(
-                  height: kLoginPagePlaceholderHeight,
-                  decoration: kMainPlaceholderDecoration,
-                  child: Stack(children: [
-                    Center(
-                        child: AnimatedContainer(
-                      duration: Duration(seconds: 2),
-                      child: Text(
-                        _tabController.index == 0
-                            ? _placeholderText[1]
-                            : _placeholderText[0],
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize:
-                                MediaQuery.of(context).viewInsets.bottom == 0
-                                    ? 25.sp
-                                    : 0),
+              Container(
+                height: kPlaceholderHeightFull,
+                decoration: kMainPlaceholderDecoration,
+                child: Stack(children: [
+                  Center(
+                    child: Container(
+                      child: (_tabController.index == 0)
+                    ? _placeholderText(kPlaceHolderLoginText)
+                    : _placeholderText(kPlaceHolderSignUpText),
+                    ),
+                    ),
+
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      color: kTabBarFading,
+                      child: TabBar(
+                        controller: _tabController,
+                        tabs: loginTabNames,
                       ),
-                    )),
-                    Container(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        color: kTabBarFading,
-                        child: TabBar(
-                          labelColor: kSelectedLabelColor,
-                          unselectedLabelColor: kUnselectedLabelColor,
-                          indicatorColor: Colors.white,
-                          controller: _tabController,
-                          tabs: [
-                            Tab(
-                              child: loginTabs[0],
-                            ),
-                            Tab(
-                              child: loginTabs[1],
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  ]),
-                ),
+                    ),
+                  )
+                ]),
               ),
               Expanded(
-                flex: 6,
                 child: Container(
                   color: Colors.transparent,
                   child: TabBarView(
                     controller: _tabController,
-                    children: [
-                      Center(
-                        child: SignUpTab(),
-                      ),
-                      Center(
-                        child: LoginTab(),
-                      ),
-                    ],
+                    children: loginTabs,
                   ),
                 ),
               )
@@ -103,10 +71,10 @@ class _LoginPageState extends State<LoginPage>
 
   @override
   void initState() {
-    _tabController = TabController(length: loginTabs.length, vsync: this);
+    _tabController = TabController(length: loginTabNames.length, vsync: this);
     _tabController.addListener(() {
       FocusScope.of(context).unfocus();
-      setState(() {});
+      setState(() { });
     });
   }
 
@@ -115,4 +83,7 @@ class _LoginPageState extends State<LoginPage>
     _tabController.dispose();
     super.dispose();
   }
+
+  Widget _placeholderText(String text)=>
+    Text(text,style: Theme.of(context).textTheme.headline2);
 }

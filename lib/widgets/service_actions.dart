@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wtt_test_app/strings.dart';
+import 'package:wtt_test_app/utils/strings.dart';
 import 'package:wtt_test_app/widgets/buttons/service_button.dart';
 
 enum AuthActions{
@@ -28,14 +28,24 @@ class ServiceActionsWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            ServiceButton(
-                service: LoginService.facebook, actionType: action.name),
-            ServiceButton(service: LoginService.google, actionType: action.name),
-            ServiceButton(
-                service: LoginService.instagram, actionType: action.name)
+            _facebookServiceButton(),
+            _googleServiceButton(),
+            _instagramServiceButton()
           ],
         ),
       ),
     );
   }
+
+  Widget _facebookServiceButton() =>
+      ServiceButton(
+          service: LoginService.facebook, actionType: action.name);
+
+Widget _googleServiceButton() =>
+    ServiceButton(
+        service: LoginService.google, actionType: action.name);
+
+Widget _instagramServiceButton() =>
+    ServiceButton(
+        service: LoginService.instagram, actionType: action.name);
 }

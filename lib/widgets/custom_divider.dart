@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wtt_test_app/colors.dart';
-import 'package:wtt_test_app/strings.dart';
-import 'package:wtt_test_app/styles.dart';
+import 'package:wtt_test_app/utils/strings.dart';
+import 'package:wtt_test_app/utils/styles.dart';
 
 class CustomDividerWidget extends StatelessWidget {
   @override
@@ -10,16 +9,9 @@ class CustomDividerWidget extends StatelessWidget {
       child: Center(
         child: Row(
           children: [
-            Expanded(
-              child: Container(
-                child: Divider(
-                  thickness: kDividerThickness,
-                  color: kDividerColor,
-                ),
-              ),
-            ),
+            Expanded(child: Divider()),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
+              margin: kDividerSpacing,
               child: Center(
                 child: Text(
                   kDividerText,
@@ -27,14 +19,7 @@ class CustomDividerWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
-              child: Container(
-                child: Divider(
-                  thickness: kDividerThickness,
-                  color: kDividerColor,
-                ),
-              ),
-            ),
+            Expanded(child: Divider()),
           ],
         ),
       ),

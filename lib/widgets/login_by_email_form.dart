@@ -6,10 +6,9 @@ import 'package:wtt_test_app/auth/bloc/login_bloc.dart';
 import 'package:wtt_test_app/auth/bloc/login_bloc_events.dart';
 import 'package:wtt_test_app/auth/login_repository.dart';
 import 'package:wtt_test_app/auth/bloc/login_bloc_states.dart';
-import 'package:wtt_test_app/colors.dart';
-import 'package:wtt_test_app/strings.dart';
-import 'package:wtt_test_app/styles.dart';
-import 'package:wtt_test_app/widgets/inputs/extensions/login_email_extension.dart';
+import 'package:wtt_test_app/utils/colors.dart';
+import 'package:wtt_test_app/utils/strings.dart';
+import 'package:wtt_test_app/utils/styles.dart';
 
 class LoginEmailFieldsWidget extends StatefulWidget {
   @override
@@ -51,7 +50,6 @@ class _LoginEmailFieldsWidgetState extends State<LoginEmailFieldsWidget> {
       final inputType = LoginInputFormType.Email;
       return Container(
           child: TextFormField(
-              cursorColor: kCursorColor,
               cursorHeight: kCursorHeight,
               textAlignVertical: TextAlignVertical.center,
               validator: (value) =>
@@ -68,7 +66,6 @@ class _LoginEmailFieldsWidgetState extends State<LoginEmailFieldsWidget> {
       final inputType = LoginInputFormType.Password;
       return Container(
           child: TextFormField(
-              cursorColor: kCursorColor,
               cursorHeight: kCursorHeight,
               textAlignVertical: TextAlignVertical.center,
               validator: (value) =>
@@ -84,27 +81,21 @@ class _LoginEmailFieldsWidgetState extends State<LoginEmailFieldsWidget> {
     return BlocBuilder<LoginBloc, LoginBlocState>(builder: (context, state) {
       return state.formStatus is FormSubmitting
           ? CircularProgressIndicator()
-          : Material(
-        child: Ink(
-          height: kMediumButtonHeight,
-          decoration: kLoginPageButtonStyle,
-          child: InkWell(
-              borderRadius: kMediumButtonBorderRadius,
-              onTap: () {
-                if(_formKey.currentState!.validate()){
-                  context.read<LoginBloc>().add(LoginSubmitted());
-                }
-              },
-              child: Container(
+          : DecoratedBox(
+            decoration: kLoginPageButtonStyle,
+            child: ElevatedButton(
+              style: Theme.of(context).elevatedButtonTheme.style?.copyWith(backgroundColor: kEmailLoginButtonColor,shadowColor: kEmailLoginButtonShadowColor),
+                onPressed: () {
+                  if(_formKey.currentState!.validate()){
+                    context.read<LoginBloc>().add(LoginSubmitted());
+                  }
+                },
                 child: Center(
                   child: Text(
                     kLoginEmailButtonText,
-                    style: kLoginButtonTextStyle,
                   ),
-                ),
-              )),
-        ),
-      );
+                )),
+          );
     });
   }
 
@@ -114,4 +105,27 @@ class _LoginEmailFieldsWidgetState extends State<LoginEmailFieldsWidget> {
   }
 
 }
+
+enum LoginInputFormType{
+  Email, Password
+}
+
+extension LoginInputHint on LoginInputFormType{
+  String get hint{
+    if(this == LoginInputFormType.Email){
+      return "Email";
+    }else{
+      return "Password";
+    }
+  }
+
+  Icon get icon{
+    if(this == LoginInputFormType.Email){
+      return Icon(Icons.alternate_email);
+    }else{
+      return Icon(Icons.lock);
+    }
+  }
+}
+
 

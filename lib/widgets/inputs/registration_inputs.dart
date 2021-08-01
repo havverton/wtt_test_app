@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
-import 'package:wtt_test_app/styles.dart';
+import 'package:wtt_test_app/utils/styles.dart';
 
 enum RegistrationInputType { phone, password, confirmPassword }
 
@@ -20,11 +20,11 @@ extension infoRegistrationInput on RegistrationInputType {
   Icon get icon {
     switch (this) {
       case RegistrationInputType.phone:
-        return Icon(Icons.phone, color: Color(0xFFB5B5B5));
+        return Icon(Icons.phone);
       case RegistrationInputType.password:
-        return Icon(Icons.lock, color: Color(0x00B5B5B5));
+        return Icon(Icons.lock);
       case RegistrationInputType.confirmPassword:
-        return Icon(Icons.lock, color: Color(0xFFB5B5B5));
+        return Icon(Icons.lock);
     }
   }
 }
@@ -39,11 +39,7 @@ class RegistrationInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
         inputFormatters: (inputType == RegistrationInputType.phone)
-            ? [
-                FilteringTextInputFormatter.digitsOnly,
-              ]
-            : [],
-        cursorColor: Colors.grey,
+            ? [FilteringTextInputFormatter.digitsOnly] : [],
         cursorHeight: 16.sp,
         textAlignVertical: TextAlignVertical.center,
         style: TextStyle(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wtt_test_app/strings.dart';
-import 'package:wtt_test_app/styles.dart';
+import 'package:wtt_test_app/utils/strings.dart';
+import 'package:wtt_test_app/utils/styles.dart';
 
 enum LoginService { facebook, google, instagram }
 
@@ -43,18 +43,16 @@ class ServiceButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: kMediumButtonHeight,
-      decoration: kServiceButtonDecoration,
-      child: InkWell(
-          onTap: () => {print('lolKek')},
+      child: ElevatedButton(
+          onPressed: () { },
+          style: Theme.of(context).elevatedButtonTheme.style!.copyWith(backgroundColor: kServiceButtonColor),
           child: Row(
             children: [
-              ServiceIconContainer(service: service),
+              _serviceIconContainer(service),
               Expanded(
                 child: Center(
                   child: Text(
-                    "$actionType with ${service.name}",
-                    style: kLoginServiceButtonTextStyle,
+                    "$actionType with ${service.name}"
                   ),
                 ),
               )
@@ -63,16 +61,8 @@ class ServiceButton extends StatelessWidget {
     );
   }
 }
-
-class ServiceIconContainer extends StatelessWidget {
-  final LoginService service;
-
-  const ServiceIconContainer({Key? key, required this.service})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
+Widget _serviceIconContainer(LoginService service) =>
+    Container(
         width: kServiceButtonIconWidth,
         height: kServiceButtonIconHeight,
         margin: kMediumButtonLeftMargin,
@@ -80,5 +70,5 @@ class ServiceIconContainer extends StatelessWidget {
           fit: BoxFit.cover,
           child: service.image,
         ));
-  }
-}
+
+
